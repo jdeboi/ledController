@@ -12,7 +12,6 @@ class HScrollbar {
   boolean over;           // is the mouse over the slider?
   boolean locked;
   float ratio;
-  float norm;
 
   HScrollbar (float xp, float yp, int sw, int sh, int l) {
     swidth = sw;
@@ -26,7 +25,6 @@ class HScrollbar {
     sposMin = xpos;
     sposMax = xpos + swidth - sheight;
     loose = l;
-    norm = 255;
   }
 
   void update() {

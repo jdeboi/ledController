@@ -8,6 +8,10 @@ color data an Arduino with LEDs connected to a TLC5940
 chip. The color picker and sliders change the color of
 a selected dot. 
 Pressing the 's' key sends the RGB data to the Arduino.
+
+TODO - update code to be able to send 0 - 4095 as LED values
+rather than 0 - 255 range (12-bit GS data w/ TLC5490)
+See boolean color256.
 */
 
 import processing.serial.*;
@@ -33,6 +37,8 @@ int ledDim = 20;
 
 // selected LED data
 boolean selected = false;
+boolean color256 = true;
+float norm = 255;
 int clickedLed;
 color selectedColor;
 int selectedColorR;
@@ -121,9 +127,11 @@ void sendGSData() {
 }
 
 void setSliders(color col) {
-  hs1.setColorPos(col >> 16 & 0xFF);
-  hs2.setColorPos(col >> 8 & 0xFF);
-  hs3.setColorPos(col & 0xFF);
+  if(color256) {
+    hs1.setColorPos(col >> 16 & 0xFF);
+    hs2.setColorPos(col >> 8 & 0xFF);
+    hs3.setColorPos(col & 0xFF);
+  }
 }
 
 void clearSelected() {
